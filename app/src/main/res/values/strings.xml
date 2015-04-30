@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Podcasts</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="podcastListTitle">My Favorites</string>
+    <string name="addPodcastButton">Add a podcast</string>
+    <string name="placeholderTitle">Podcast Title</string>
+    <string name="placeholderDescription">Podcast Description</string>
+    <string name="playButton">Play</string>
+    <string name="pauseButton">Pause</string>
+    <string name="stopButton">Stop</string>
+    <string name="removePodcast">Unfavorite</string>
+    <string name="searchBoxHint">Enter a podcast name</string>
+    <string name="searchButton">Go</string>
+    <string name="title_activity_search_podcast">SearchPodcast</string>
+
+    <string name="podcastTitle">Podcast Title Here</string>
+    <string name="podcastAuthor">Author Authorson</string>
+</resources>
