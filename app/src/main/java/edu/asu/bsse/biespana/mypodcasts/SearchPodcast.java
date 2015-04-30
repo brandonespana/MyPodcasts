@@ -10,9 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.apache.http.HttpRequest;
 import org.json.JSONArray;
@@ -76,12 +78,10 @@ public class SearchPodcast extends Activity {
                     char c = (char) read;
                     builder.append(c);
                 }
-                //String jsonBulk = builder.toString();
                 String receivedJsonString = builder.toString();
                 results.add(receivedJsonString);
 
                 //Extract information (podcast titles, authors, artwork) from the json response:
-                podcasts = new ArrayList<Podcast>();
                 try{
                     JSONObject responseObj = new JSONObject(receivedJsonString);//used to be JSONObject(item)
                     JSONArray list = (JSONArray) responseObj.get("results");
@@ -91,13 +91,13 @@ public class SearchPodcast extends Activity {
                         String author = (String) oneItem.get("artistName");
                         String feedUrl = (String) oneItem.get("feedUrl");
                         String artworkUrl = (String) oneItem.get("artworkUrl100");
+
                         //get the artwork:
                         InputStream in = new URL(artworkUrl).openStream();
                         Bitmap artworkImage = BitmapFactory.decodeStream(in);
 
                         Podcast onePodcast = new Podcast(title, author, feedUrl, artworkImage);
                         podcasts.add(onePodcast);
-                        //names.add(oneEntry);
                     }
                 }
                 catch(JSONException jse){
@@ -113,11 +113,28 @@ public class SearchPodcast extends Activity {
             return podcasts;
         }
 
-        protected void onPostExecute(ArrayList<Podcast> podcasts){
+        protected void onPostExecute(final ArrayList<Podcast> podcasts){
+            TextView noResultsView = (TextView)findViewById(R.id.noResultsView);
+
+            if(podcasts.size()<1){
+                System.out.println("No results were found");
+                noResultsView.setVisibility(View.VISIBLE);
+            }
+            else{
+                noResultsView.setVisibility(View.GONE);
+            }
+
             ListView resultsListView = (ListView) findViewById(R.id.searchResults);
             SearchResultsAdapter myAdapter = new SearchResultsAdapter(self,R.layout.individual_search_result,podcasts);
             resultsListView.setAdapter(myAdapter);
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+
+            resultsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    System.out.println("Clicked on: "+ podcasts.get(position).getTitle());
+                }
+            });
         }
     }
 }

@@ -18,4 +18,5 @@
 
     <string name="podcastTitle">Podcast Title Here</string>
     <string name="podcastAuthor">Author Authorson</string>
+    <string name="noResults">No results were found</string>
 </resources>
