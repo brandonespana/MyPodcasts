@@ -1,19 +1,23 @@
 package edu.asu.bsse.biespana.mypodcasts;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class PodcastActivity extends Activity {
@@ -28,6 +32,8 @@ public class PodcastActivity extends Activity {
     private String podcastAuthor;
     private String podcastDescription;
     private String feedUrl;
+
+    private Context thisContext = this;
 
 
     @Override
@@ -46,6 +52,8 @@ public class PodcastActivity extends Activity {
         coverArtView = (ImageView) findViewById(R.id.podcastActivityCover);
         titleView = (TextView) findViewById(R.id.podcastActivityTitle);
         authorView = (TextView) findViewById(R.id.podcastActivityAuthor);
+        descriptionView = (TextView) findViewById(R.id.podcastActivityDescription);
+        episodesList = (ListView)findViewById(R.id.episodesList);
 
         coverArtView.setImageBitmap(podcastCoverArt);
         titleView.setText(podcastTitle);
@@ -75,26 +83,48 @@ public class PodcastActivity extends Activity {
                 // Starts the query
                 conn.connect();
 
-                parser.parseXML(conn.getInputStream());
+                items = parser.parseXML(conn.getInputStream());
             }
             catch(Exception e){
                 e.printStackTrace();
             }
 
-            if(items != null){
-                System.out.println("received this from the parser: "+items.toString());
-            }
-            else{
+            if(items == null){
                 System.out.println("items is null");
+                //System.out.println("received this from the parser: "+items.toString());
             }
-
 
             return items;
         }
 
         @Override
         protected void onPostExecute(List<String> items){
-            System.out.println("items 0: "+ items.get(0));
+            if(items!=null){
+                ArrayList episodeTitles = new ArrayList();
+                ArrayList episodeStreamUrls = new ArrayList();
+
+                podcastDescription = items.get(0);
+                //descriptionView = (TextView)findViewById()
+                descriptionView.setText(podcastDescription);
+
+                System.out.println("Episodes Information");
+                int size = items.size();
+
+                for(int i = 1; i < size; i ++){
+                    System.out.println(items.get(i));
+                    String[] splitString = items.get(i).split(Pattern.quote("_biespana_"));
+                    //System.out.println("splitstring length is : "+splitString.length);
+                    episodeTitles.add(splitString[0]);
+                    episodeStreamUrls.add(splitString[1]);
+                }
+
+                ArrayAdapter adapter = new ArrayAdapter(thisContext,android.R.layout.simple_list_item_1, episodeTitles);
+                episodesList.setAdapter(adapter);
+
+
+
+            }
+
         }
     }
 }

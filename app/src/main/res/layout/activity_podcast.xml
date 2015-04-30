@@ -13,8 +13,8 @@
         android:id="@+id/podcastActivityCover"
         android:src="@drawable/ic_launcher"
         android:layout_gravity="center"
-        android:layout_width="150dp"
-        android:layout_height="150dp" />
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
     <TextView
         android:id="@+id/podcastActivityTitle"
         android:text="@string/podcastTitle"
@@ -27,6 +27,11 @@
         android:text="@string/podcastAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/podcastActivityDescription"
+        android:text="@string/podcastTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp" />
     <ListView
         android:id="@+id/episodesList"
         android:layout_width="fill_parent"
