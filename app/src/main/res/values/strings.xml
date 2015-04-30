@@ -15,8 +15,9 @@
     <string name="searchBoxHint">Enter a podcast name</string>
     <string name="searchButton">Go</string>
     <string name="title_activity_search_podcast">SearchPodcast</string>
-
     <string name="podcastTitle">Podcast Title Here</string>
     <string name="podcastAuthor">Author Authorson</string>
     <string name="noResults">No results were found</string>
+    <string name="title_activity_podcast">PodcastActivity</string>
+
 </resources>

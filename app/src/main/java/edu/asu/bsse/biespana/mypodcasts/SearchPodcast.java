@@ -2,6 +2,7 @@ package edu.asu.bsse.biespana.mypodcasts;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -37,6 +38,7 @@ public class SearchPodcast extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_for_podcast);
+        setTitle("Search For Podcast");
     }
 
 
@@ -132,7 +134,20 @@ public class SearchPodcast extends Activity {
             resultsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    System.out.println("Clicked on: "+ podcasts.get(position).getTitle());
+                    Podcast selectedPodcast = podcasts.get(position);
+                    //System.out.println("Clicked on: "+ podcasts.get(position).getTitle());
+                    System.out.println("Clicked on: "+ selectedPodcast.getTitle());
+                    //Create Intent to start PodcastActivity
+                    Intent intent = new Intent(self, PodcastActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("podcastTitle", selectedPodcast.getTitle());
+                    bundle.putString("podcastAuthor", selectedPodcast.getAuthor());
+                    bundle.putString("podcastFeedUrl", selectedPodcast.getFeedUrl());
+                    bundle.putParcelable("podcastImage",selectedPodcast.getArtworkImage());
+                    intent.putExtra("podcastBundle",bundle);
+
+                    startActivity(intent);
+
                 }
             });
         }

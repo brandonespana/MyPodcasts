@@ -17,12 +17,16 @@ public class Podcast {
     private String author;
     private String feedUrl;
     private Bitmap artworkImage;
+    private String description;
+
+
     private int coverArt;
     private ArrayList<String> episodes;
 
     public Podcast(String title, String author, String feedUrl, Bitmap artworkImage){
         this.title = title;
         this.author = author;
+        //this.description = description;
         this.feedUrl = feedUrl;
         this.artworkImage = artworkImage;
         //this.coverArt = coverArt;
@@ -30,6 +34,10 @@ public class Podcast {
 
     public Bitmap getArtworkImage(){
         return artworkImage;
+    }
+
+    public String getDescription(){
+        return description;
     }
     public String getTitle() {
         return title;
