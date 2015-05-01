@@ -84,7 +84,7 @@ public class SearchPodcast extends Activity {
                 results.add(receivedJsonString);
 
                 //Extract information (podcast titles, authors, artwork) from the json response:
-                try{
+//                try{
                     JSONObject responseObj = new JSONObject(receivedJsonString);//used to be JSONObject(item)
                     JSONArray list = (JSONArray) responseObj.get("results");
                     for (int i = 0; i < list.length();i++){
@@ -95,16 +95,18 @@ public class SearchPodcast extends Activity {
                         String artworkUrl = (String) oneItem.get("artworkUrl100");
 
                         //get the artwork:
+                        System.out.println("Getting the image...");
                         InputStream in = new URL(artworkUrl).openStream();
                         Bitmap artworkImage = BitmapFactory.decodeStream(in);
+                        System.out.println("Done getting the image");
 
                         Podcast onePodcast = new Podcast(title, author, feedUrl, artworkImage);
                         podcasts.add(onePodcast);
                     }
-                }
-                catch(JSONException jse){
-                    jse.printStackTrace();
-                }
+//                }
+//                catch(JSONException jse){
+//                    jse.printStackTrace();
+//                }
             }
             catch(Exception  e){
                 e.printStackTrace();

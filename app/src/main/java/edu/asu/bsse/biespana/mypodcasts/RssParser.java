@@ -66,7 +66,7 @@ public class RssParser {
                     NodeList itemChildren = currentElement.getChildNodes();//each 'item' tag has a 'link' and 'title' text tag
                     int itemChildrenLength = itemChildren.getLength();
                     String title = "";
-                    String description ="";
+                    String episodeDescription ="";
                     String link = "";
 
                     for(int j = 0; j < itemChildrenLength; j++){
@@ -77,7 +77,7 @@ public class RssParser {
                                 title = itemChildElement.getTextContent();
                             }
                             if(itemChildElement.getTagName().equalsIgnoreCase("description")){
-                                description = itemChildElement.getTextContent();
+                                episodeDescription = itemChildElement.getTextContent();
                             }
                             if(itemChildElement.getTagName().equalsIgnoreCase("link")){
                                 link = itemChildElement.getTextContent();
@@ -85,6 +85,9 @@ public class RssParser {
                         }
                     }
                     //String episodeInfo = title+"_biespana_"+description+"_b!_"+link;
+                    if("".equals(link)){
+                        link = "no link found for this episode :(";
+                    }
                     String episodeInfo = title+"_biespana_"+link;
                     //items.add(episodeInfo);
                     items.add(episodeInfo);

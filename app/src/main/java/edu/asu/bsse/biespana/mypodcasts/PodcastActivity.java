@@ -57,7 +57,7 @@ public class PodcastActivity extends Activity {
 
         coverArtView.setImageBitmap(podcastCoverArt);
         titleView.setText(podcastTitle);
-        authorView.setText(podcastAuthor);
+        authorView.setText("By "+podcastAuthor);
         setTitle(podcastTitle);
 
         //Start background task to get the list of episodes and the urls to stream from
@@ -117,9 +117,13 @@ public class PodcastActivity extends Activity {
                     episodeTitles.add(splitString[0]);
                     episodeStreamUrls.add(splitString[1]);
                 }
-
-                ArrayAdapter adapter = new ArrayAdapter(thisContext,android.R.layout.simple_list_item_1, episodeTitles);
+                //Set custom adapter that will receive titles and urls ('items' array)
+                //ArrayAdapter adapter = new ArrayAdapter(thisContext,android.R.layout.simple_list_item_1, episodeTitles);
+                //EpisodeListAdapter adapter = new EpisodeListAdapter(thisContext,R.layout.individual_episode,items);
+                items.remove(0);
+                EpisodeListAdapter adapter = new EpisodeListAdapter(thisContext,R.layout.individual_episode,items);
                 episodesList.setAdapter(adapter);
+
 
 
 
