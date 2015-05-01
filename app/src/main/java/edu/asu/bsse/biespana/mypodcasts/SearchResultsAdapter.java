@@ -12,14 +12,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Copyright 2015 Brandon España
- * <p/>
- * Instructor and TA have the right to build and evaluate the software package
- *
- * @author Brandon España Brandon.Espana@asu.edu
- * @version April 29, 2015
- */
+//  Copyright (c) 2015 Brandon Espana,
+//  The professor and TA have the right to build and evaluate this software package
+//
+//  @author: Brandon Espana mailto:biespana@asu.edu
+//  @Version: May 1, 2015
+
 public class SearchResultsAdapter extends ArrayAdapter<Podcast>{
     private int resource;
     private Context context;
@@ -43,28 +41,11 @@ public class SearchResultsAdapter extends ArrayAdapter<Podcast>{
         String author = podcasts.get(position).getAuthor();
         Bitmap coverArtImage = podcasts.get(position).getArtworkImage();
 
-        //WeatherHolder holder = null;
-
         if(row == null)
         {
-            //LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-
             row = inflater.inflate(resource, parent, false);
-
-
-
-//            holder = new WeatherHolder();
-//            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
-//            holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
-
-            //row.setTag(holder);
         }
-//        else
-//        {
-//            //holder = (WeatherHolder)row.getTag();
-//
-//        }
 
         titleView = (TextView)row.findViewById(R.id.podcastTitle);
         authorView = (TextView)row.findViewById(R.id.podcastAuthor);
@@ -73,10 +54,6 @@ public class SearchResultsAdapter extends ArrayAdapter<Podcast>{
         titleView.setText(title);
         authorView.setText(author);
         artworkView.setImageBitmap(coverArtImage);
-
-//        Weather weather = data[position];
-//        holder.txtTitle.setText(weather.title);
-//        holder.imgIcon.setImageResource(weather.icon);
 
         return row;
     }

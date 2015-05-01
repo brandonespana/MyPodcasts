@@ -31,6 +31,11 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
+//  Copyright (c) 2015 Brandon Espana,
+//  The professor and TA have the right to build and evaluate this software package
+//
+//  @author: Brandon Espana mailto:biespana@asu.edu
+//  @Version: May 1, 2015
 
 public class SearchPodcast extends Activity {
     private Activity self = this;
@@ -84,7 +89,6 @@ public class SearchPodcast extends Activity {
                 results.add(receivedJsonString);
 
                 //Extract information (podcast titles, authors, artwork) from the json response:
-//                try{
                     JSONObject responseObj = new JSONObject(receivedJsonString);//used to be JSONObject(item)
                     JSONArray list = (JSONArray) responseObj.get("results");
                     for (int i = 0; i < list.length();i++){
@@ -103,10 +107,6 @@ public class SearchPodcast extends Activity {
                         Podcast onePodcast = new Podcast(title, author, feedUrl, artworkImage);
                         podcasts.add(onePodcast);
                     }
-//                }
-//                catch(JSONException jse){
-//                    jse.printStackTrace();
-//                }
             }
             catch(Exception  e){
                 e.printStackTrace();

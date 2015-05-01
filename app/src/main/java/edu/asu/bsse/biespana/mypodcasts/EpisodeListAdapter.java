@@ -17,9 +17,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.regex.Pattern;
 
-/**
- * Created by biespana on 4/30/15.
- */
+//  Copyright (c) 2015 Brandon Espana,
+//  The professor and TA have the right to build and evaluate this software package
+//
+//  @author: Brandon Espana mailto:biespana@asu.edu
+//  @Version: May 1, 2015
+
 public class EpisodeListAdapter extends ArrayAdapter<String> {
     private Context context;
     private int resource;
@@ -38,7 +41,6 @@ public class EpisodeListAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
         TextView titleView = null;
-        Button playButton = null;
 
         final String[] splitString = list.get(position).split(Pattern.quote("_biespana_"));
         String title = splitString[0];
@@ -51,23 +53,22 @@ public class EpisodeListAdapter extends ArrayAdapter<String> {
         }
 
         titleView = (TextView)row.findViewById(R.id.episodeTitle);
-        playButton = (Button)row.findViewById(R.id.episodePlayButton);
+        final Button playButton = (Button)row.findViewById(R.id.episodePlayButton);
+        final Button pauseButton = (Button)row.findViewById(R.id.episodePauseButton);
+        final View loadingCircle = (View)row.findViewById(R.id.episodeLoading);
 
         titleView.setText(title);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(splitString[1]!= null){
+
                     System.out.println("will setup audio stream for url: "+splitString[1]);
                     try{
-                        //String url = "http://........"; // your URL here
-                        String url = splitString[1]; // your URL here
-                        MediaPlayer mediaPlayer = new MediaPlayer();
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        mediaPlayer.setDataSource(url);
-                        mediaPlayer.prepare(); // might take long! (for buffering, etc)
-                        mediaPlayer.start();
+                        String url = splitString[1];
 
+                        MyAudioPlayer myPlayer = new MyAudioPlayer();
+                        myPlayer.playEpisode(url, playButton, loadingCircle );
                     }
                     catch (Exception e){
                         e.printStackTrace();
@@ -75,30 +76,46 @@ public class EpisodeListAdapter extends ArrayAdapter<String> {
                 }
             }
         });
-//        Weather weather = data[position];
-//        holder.txtTitle.setText(weather.title);
-//        holder.imgIcon.setImageResource(weather.icon);
 
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return row;
     }
 
     static class MyAudioPlayer implements MediaPlayer.OnPreparedListener{
-        private MediaPlayer player;
+        private static MediaPlayer player = null;
+        private Button playButton = null;
+        private View loading = null;
 
         public MyAudioPlayer(){
-            player = new MediaPlayer();
-
+            if(player == null){
+                player = new MediaPlayer();
+                System.out.println("initializing media player, it was null");
+            }
         }
 
-        public void playEpisode(String url) throws IOException {
+        public void playEpisode(String url, Button play, View loadingCircle) throws IOException {
+            System.out.println("inside playEpisode");
             player.reset();
             player.setAudioStreamType(AudioManager.STREAM_MUSIC);
             player.setDataSource(url);
+            player.setOnPreparedListener(this);
             player.prepareAsync();
+            playButton = play;
+            loading = loadingCircle;
+            play.setVisibility(View.GONE);
+            loadingCircle.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void onPrepared(MediaPlayer mp) {
+            System.out.println("ready to play");
+            playButton.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
             mp.start();
         }
     }

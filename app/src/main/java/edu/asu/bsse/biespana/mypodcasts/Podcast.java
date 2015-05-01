@@ -4,14 +4,12 @@ import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
-/**
- * Copyright 2015 Brandon España
- * <p/>
- * Instructor and TA have the right to build and evaluate the software package
- *
- * @author Brandon España Brandon.Espana@asu.edu
- * @version April 29, 2015
- */
+//  Copyright (c) 2015 Brandon Espana,
+//  The professor and TA have the right to build and evaluate this software package
+//
+//  @author: Brandon Espana mailto:biespana@asu.edu
+//  @Version: May 1, 2015
+
 public class Podcast {
     private String title;
     private String author;
@@ -26,10 +24,8 @@ public class Podcast {
     public Podcast(String title, String author, String feedUrl, Bitmap artworkImage){
         this.title = title;
         this.author = author;
-        //this.description = description;
         this.feedUrl = feedUrl;
         this.artworkImage = artworkImage;
-        //this.coverArt = coverArt;
     }
 
     public Bitmap getArtworkImage(){

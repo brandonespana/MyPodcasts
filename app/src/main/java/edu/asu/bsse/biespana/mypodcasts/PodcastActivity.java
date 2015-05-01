@@ -19,6 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+//  Copyright (c) 2015 Brandon Espana,
+//  The professor and TA have the right to build and evaluate this software package
+//
+//  @author: Brandon Espana mailto:biespana@asu.edu
+//  @Version: May 1, 2015
 
 public class PodcastActivity extends Activity {
     private ImageView coverArtView;
@@ -91,7 +96,6 @@ public class PodcastActivity extends Activity {
 
             if(items == null){
                 System.out.println("items is null");
-                //System.out.println("received this from the parser: "+items.toString());
             }
 
             return items;

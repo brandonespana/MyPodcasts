@@ -18,19 +18,20 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-/**
- * Created by biespana on 4/30/15.
- */
+//  Copyright (c) 2015 Brandon Espana,
+//  The professor and TA have the right to build and evaluate this software package
+//
+//  @author: Brandon Espana mailto:biespana@asu.edu
+//  @Version: May 1, 2015
+
 public class RssParser {
     public List parseXML(InputStream inputStream){
         System.out.println("In parseXML method");
-        //DocumentBuilder builder = null;
         Document xmlDOM = null;
         try{
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             xmlDOM = builder.parse(inputStream);
-            //return readFeed(xmlDOM);
 
         }catch (Exception e){
             e.printStackTrace();
